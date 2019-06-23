@@ -1,0 +1,25 @@
+﻿<Window x:Class="PapaJohns.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PapaJohns"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1300" WindowStartupLocation="CenterScreen">
+
+    <DockPanel Name="generalPanel" Margin="10,0,2,13">
+        <ListBox Name="toolBox" Width="456" Margin="0,0,0,569">
+            <ListBoxItem Name="itemMesaCuad" FontSize="25">Mesa</ListBoxItem>
+            <ListBoxItem Name="itemMesaRed" FontSize="25">Mesa</ListBoxItem>
+            <ListBoxItem Name="itemSilla" FontSize="25">Silla</ListBoxItem>
+            <ListBoxItem Name="itemTabur" FontSize="25">Taburete</ListBoxItem>
+        </ListBox>
+        <Grid HorizontalAlignment="Right" Width="816">
+            <Grid.Background>
+                <ImageBrush ImageSource="I:\VisualStudio\PapaJohns\PapaJohns\Source\board.png" Stretch="Fill"></ImageBrush>
+            </Grid.Background>
+        </Grid>
+
+
+    </DockPanel>
+</Window>

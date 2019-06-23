@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PapaJohns"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1000" WindowStartupLocation="CenterScreen">
-    <Grid Margin="186,10,0,46">
-        <ListBox HorizontalAlignment="Left" Height="363" Margin="-180,0,0,0" VerticalAlignment="Top" Width="166" />
+        Title="MainWindow" Height="700"  Width="1300" WindowStartupLocation="CenterScreen">
 
+    <Grid>
+        
     </Grid>
 </Window>
