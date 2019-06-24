@@ -5,20 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PapaJohns"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1300" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="700" Width="1300" WindowStartupLocation="CenterScreen">
 
     <DockPanel Name="generalPanel" Margin="10,0,2,13">
-        <ListBox Name="toolBox" Width="456" Margin="0,0,0,569">
-            <ListBoxItem Name="itemMesaCuad" FontSize="25">Mesa</ListBoxItem>
+        <ListBox Name="toolBox" Width="456" Margin="0,0,0,454">
+            <ListBoxItem Name="itemMesaCuad">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="table.png"></Image>
+                    <TextBlock Text=" Mesa" FontSize="27"></TextBlock>
+                </StackPanel>
+            </ListBoxItem>
             <ListBoxItem Name="itemMesaRed" FontSize="25">Mesa</ListBoxItem>
             <ListBoxItem Name="itemSilla" FontSize="25">Silla</ListBoxItem>
             <ListBoxItem Name="itemTabur" FontSize="25">Taburete</ListBoxItem>
         </ListBox>
-        <Grid HorizontalAlignment="Right" Width="816">
-            <Grid.Background>
+        <Canvas Name="designSpace" HorizontalAlignment="Right" Width="811" Margin="0,34,0,36" MouseLeftButtonDown="DesignSpace_MouseLeftButtonDown" MouseLeftButtonUp="DesignSpace_MouseLeftButtonUp" MouseMove="DesignSpace_MouseMove">
+            <Canvas.Background>
                 <ImageBrush ImageSource="I:\VisualStudio\PapaJohns\PapaJohns\Source\board.png" Stretch="Fill"></ImageBrush>
-            </Grid.Background>
-        </Grid>
+            </Canvas.Background>
+        </Canvas>
 
 
     </DockPanel>
