@@ -8,6 +8,6 @@
         Title="MainWindow" Height="700"  Width="1300" WindowStartupLocation="CenterScreen">
 
     <Grid>
-        
+        <Button Name="editButton" Content="Editar" Margin="58,70,616,440" Click="EditButton_Click"></Button>
     </Grid>
 </Window>
