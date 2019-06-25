@@ -1,13 +1,15 @@
-﻿<Window x:Class="PapaJohns.MainWindow"
+﻿<Controls:MetroWindow x:Class="PapaJohns.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        
         xmlns:local="clr-namespace:PapaJohns"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700"  Width="1300" WindowStartupLocation="CenterScreen">
+        Title="Papa John's" Height="700"  Width="1300" BorderThickness="0" GlowBrush="Black" ShowTitleBar="False" WindowStartupLocation="CenterScreen">
 
     <Grid>
         <Button Name="editButton" Content="Editar" Margin="58,70,616,440" Click="EditButton_Click"></Button>
     </Grid>
-</Window>
+</Controls:MetroWindow>
