@@ -1,7 +1,10 @@
 ﻿using MahApps.Metro.Controls;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using PapaJohnsCODE;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -221,6 +225,50 @@ namespace PapaJohns
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
+            string json = JsonConvert.SerializeObject(mesas);
+            //string json2 = JsonConvert.SerializeObject(designSpace);
+
+            string[] savefile = new string[] { json };
+
+            SaveFileDialog sfd = new SaveFileDialog();
+
+
+            sfd.FileName = "untitled";
+            sfd.Filter = "Json Files(*.json) | *.json | Text Files(*.txt) | *.txt | All Files(*.*) | *.*  ";
+            //   sfd.DefaultExt = "json";
+
+            sfd.ShowDialog();
+
+
+            File.WriteAllLines(sfd.FileName, savefile);
+
+            //   Nullable<bool> result = sfd.ShowDialog();
+
+            MainWindow mainWindow = new MainWindow();
+
+            //if (result == true)
+            //{
+            SerializeToXML(mainWindow, designSpace, 96, sfd.FileName);
+            //}
+
+
+
+
+
+        }
+
+        public static void SerializeToXML(MainWindow window, Canvas canvas, int dpi, string filename)
+        {
+            string mystrXAML = XamlWriter.Save(canvas);
+            FileStream filestream = File.Create(filename);
+            StreamWriter streamwriter = new StreamWriter(filestream);
+            streamwriter.Write(mystrXAML);
+            streamwriter.Close();
+            filestream.Close();
         }
     }
+
+
+
+}
 }
