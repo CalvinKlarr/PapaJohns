@@ -8,7 +8,7 @@ namespace PapaJohnsCODE
 {
     public class Mesa
     {
-        public int id { get { return id; } set { this.id = value;  } }
+        public int id { get; set; }
 
         
         private string estado; //libre, ocupada o reservada.

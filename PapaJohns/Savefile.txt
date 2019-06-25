@@ -1,0 +1,1 @@
+{"System.Windows.Controls.Image":{"mozito":null,"id":0,"Estado":null,"Cliente":null,"Consumo":0}}
