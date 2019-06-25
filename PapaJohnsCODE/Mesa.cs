@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace PapaJohnsCODE
 {
-    class Mesa
+    public class Mesa
     {
         public int id { get { return id; } set { this.id = value;  } }
 
-        private List<bool> silla; //cantidad y disponibilidad(depende de la cantidad de nodos q tenga es la cantidad y la disponibilidad de si es true o false.
+        
         private string estado; //libre, ocupada o reservada.
         public string Estado { get { return estado; } set { this.estado = value; } }
 

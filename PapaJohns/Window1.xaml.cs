@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PapaJohnsCODE;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
+
+
 namespace PapaJohns
 {
     /// <summary>
@@ -21,10 +25,15 @@ namespace PapaJohns
     {
         private Point mouseClick;
         private Image draggedImage;
+        private double rotation = 0;
+        private Dictionary<Image, Mesa> mesas;
+        private Mesa mesa;
+        
         public Window1()
         {
             InitializeComponent();
             toolBox.MouseDoubleClick += ToolBox_MouseDoubleClick;
+            mesas = new Dictionary<Image, Mesa>();
 
 
         }
@@ -57,8 +66,53 @@ namespace PapaJohns
                     table.Width = 50;
                     Canvas.SetLeft(table, 0);
                     Canvas.SetTop(table, 0);
+                    mesa = new Mesa();
+                    mesas.Add(table, mesa);
                     designSpace.Children.Add(table);
                     
+                }
+                if(selected == " Silla")
+                {
+                    Image chair = new Image();
+                    chair.Source = new BitmapImage(new Uri("chair.png", UriKind.Relative));
+                    chair.Height = 30;
+                    chair.Width = 30;
+                    Canvas.SetLeft(chair, 0);
+                    Canvas.SetTop(chair, 0);
+                    designSpace.Children.Add(chair);
+                }
+                if (selected == " Mesa redonda")
+                {
+                    Image rtable = new Image();
+                    rtable.Source = new BitmapImage(new Uri("roundtable.png", UriKind.Relative));
+                    rtable.Height = 50;
+                    rtable.Width = 50;
+                    Canvas.SetLeft(rtable, 0);
+                    Canvas.SetTop(rtable, 0);
+                    mesa = new Mesa();
+                    mesas.Add(rtable, mesa);
+                    designSpace.Children.Add(rtable);
+
+                }
+                if (selected == " Taburete")
+                {
+                    Image stool = new Image();
+                    stool.Source = new BitmapImage(new Uri("stool.png", UriKind.Relative));
+                    stool.Height = 30;
+                    stool.Width = 30;
+                    Canvas.SetLeft(stool, 0);
+                    Canvas.SetTop(stool, 0);
+                    designSpace.Children.Add(stool);
+                }
+                if(selected == " Pared")
+                {
+                    Image wall = new Image();
+                    wall.Source = new BitmapImage(new Uri("wall.png", UriKind.Relative));
+                    wall.Height = 50;
+                    wall.Width = 50;
+                    Canvas.SetLeft(wall, 0);
+                    Canvas.SetTop(wall, 0);
+                    designSpace.Children.Add(wall);
                 }
             }
         }
@@ -97,6 +151,72 @@ namespace PapaJohns
                 Canvas.SetLeft(draggedImage, Canvas.GetLeft(draggedImage) + offset.X);
                 Canvas.SetTop(draggedImage, Canvas.GetTop(draggedImage) + offset.Y);
             }
+
+        }
+
+        private void SizeChoice_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sizeChoice.SelectedItem.Equals(sizeOne))
+            {
+                designSpace.Height = 600;
+                designSpace.Width = 800;
+
+            }
+
+            if (sizeChoice.SelectedItem.Equals(sizeTwo))
+            {
+                designSpace.Height = 400;
+                designSpace.Width = 600;
+            }
+
+            if (sizeChoice.SelectedItem.Equals(sizeThree))
+            {
+                designSpace.Height = 200;
+                designSpace.Width = 400;
+            }
+
+        }
+
+        private void BackgroundChoice_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ImageBrush ib = new ImageBrush();
+
+            if (backgroundChoice.SelectedItem.Equals(pisoUno))
+            {
+                ib.ImageSource = new BitmapImage(new Uri("../../board.png", UriKind.Relative));
+                ib.Stretch = Stretch.Fill;
+                designSpace.Background = ib;
+                
+            }
+            if (backgroundChoice.SelectedItem.Equals(pisoDos))
+            {
+                ib.ImageSource = new BitmapImage(new Uri("../../floorboard.png", UriKind.RelativeOrAbsolute));
+                ib.Stretch = Stretch.Fill;
+                designSpace.Background = ib;
+            }
+            
+        }
+
+        private void DesignSpace_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var image = e.Source as Image;
+            if(image != null)
+            {
+                if(rotation >= 360) {
+                    rotation = 0;
+
+                }
+                rotation = rotation + 90;
+
+                RotateTransform rotate = new RotateTransform(rotation);
+                image.RenderTransformOrigin = new Point(0.5, 0.5);
+                image.RenderTransform = rotate;
+            }
+        }
+        //En este evento se realiza el guardado, las cosas a guardar son el Canvas, nombre designSpace y el diccionario mesas
+        //idealmente hay que guardarlos en un mismo archivo.
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

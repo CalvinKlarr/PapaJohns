@@ -7,24 +7,57 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="1300" WindowStartupLocation="CenterScreen">
 
-    <DockPanel Name="generalPanel" Margin="10,0,2,13">
-        <ListBox Name="toolBox" Width="456" Margin="0,0,0,454">
+    <Grid Name="generalPanel" Margin="10,0,2,13">
+        <Button Name="saveButton" Content="Guardar" Margin="0,544,814,64" FontSize="24" Click="SaveButton_Click"></Button>
+        <TextBlock Name="sizeName" Margin="10,230,814,376" FontSize="25">Tamaño del espacio: </TextBlock>
+        <ComboBox Name="sizeChoice" FontSize="25" Margin="10,285,814,328" SelectionChanged="SizeChoice_SelectionChanged">
+            <ComboBoxItem Name="sizeOne">600x800</ComboBoxItem>
+            <ComboBoxItem Name="sizeTwo">400x600</ComboBoxItem>
+            <ComboBoxItem Name="sizeThree">200x400</ComboBoxItem>
+        </ComboBox>
+        <TextBlock Name="backgroundText" FontSize="25" Margin="10,348,814,255">Piso: </TextBlock>
+        <ComboBox Name="backgroundChoice" FontSize="25" Margin="10,406,814,206" SelectionChanged="BackgroundChoice_SelectionChanged">
+            <ComboBoxItem Name="pisoUno">Ajedrez</ComboBoxItem>
+            <ComboBoxItem Name="pisoDos">Madera</ComboBoxItem>
+        </ComboBox>
+        <ListBox Name="toolBox" Width="456" Margin="10,10,814,444">
             <ListBoxItem Name="itemMesaCuad">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="table.png"></Image>
+                    <Image Source="table.png" Height="50" Width="50"></Image>
                     <TextBlock Text=" Mesa" FontSize="27"></TextBlock>
                 </StackPanel>
             </ListBoxItem>
-            <ListBoxItem Name="itemMesaRed" FontSize="25">Mesa</ListBoxItem>
-            <ListBoxItem Name="itemSilla" FontSize="25">Silla</ListBoxItem>
-            <ListBoxItem Name="itemTabur" FontSize="25">Taburete</ListBoxItem>
+            <ListBoxItem Name="itemMesaRed" FontSize="25">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="roundtable.png" Height="50" Width="50"></Image>
+                    <TextBlock Text=" Mesa redonda" FontSize="27"></TextBlock>
+                </StackPanel>
+            </ListBoxItem>
+            <ListBoxItem Name="itemSilla" FontSize="25">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="chair.png" Height="50" Width="50"></Image>
+                    <TextBlock Text=" Silla" FontSize="27"></TextBlock>
+                </StackPanel>
+            </ListBoxItem>
+            <ListBoxItem Name="itemTabur" FontSize="25">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="stool.png" Height="50" Width="50"></Image>
+                    <TextBlock Text=" Taburete" FontSize="27"></TextBlock>
+                </StackPanel>
+            </ListBoxItem>
+            <ListBoxItem Name="itemPared" FontSize="25">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="wall.png" Height="50" Width="50"></Image>
+                    <TextBlock Text=" Pared" FontSize="27"></TextBlock>
+                </StackPanel>
+            </ListBoxItem>
+
         </ListBox>
-        <Canvas Name="designSpace" HorizontalAlignment="Right" Width="811" Margin="0,34,0,36" MouseLeftButtonDown="DesignSpace_MouseLeftButtonDown" MouseLeftButtonUp="DesignSpace_MouseLeftButtonUp" MouseMove="DesignSpace_MouseMove">
-            <Canvas.Background>
-                <ImageBrush ImageSource="I:\VisualStudio\PapaJohns\PapaJohns\Source\board.png" Stretch="Fill"></ImageBrush>
-            </Canvas.Background>
+        
+        <Canvas Name="designSpace"   Height="600" Width="800" Margin="480,32,0,24" MouseLeftButtonDown="DesignSpace_MouseLeftButtonDown" MouseLeftButtonUp="DesignSpace_MouseLeftButtonUp" MouseMove="DesignSpace_MouseMove" MouseRightButtonDown="DesignSpace_MouseRightButtonDown">
+            
         </Canvas>
 
 
-    </DockPanel>
+    </Grid>
 </Window>
