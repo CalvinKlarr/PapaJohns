@@ -1,26 +1,27 @@
-﻿<Window x:Class="PapaJohns.Window1"
+﻿<Controls:MetroWindow x:Class="PapaJohns.Window1"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:PapaJohns"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="1300" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="700" Width="1300" ShowTitleBar="False" Background="LightSteelBlue"  WindowStartupLocation="CenterScreen">
 
     <Grid Name="generalPanel" Margin="10,0,2,13">
-        <Button Name="saveButton" Content="Guardar" Margin="0,544,814,64" FontSize="24" Click="SaveButton_Click"></Button>
-        <TextBlock Name="sizeName" Margin="10,230,814,376" FontSize="25">Tamaño del espacio: </TextBlock>
-        <ComboBox Name="sizeChoice" FontSize="25" Margin="10,285,814,328" SelectionChanged="SizeChoice_SelectionChanged">
+        <Button Name="saveButton" Content="Guardar" Margin="0,540,814,64" FontSize="24" BorderThickness="1" BorderBrush="Black" Click="SaveButton_Click"></Button>
+        <TextBlock Name="sizeName" Margin="10,245,814,361" FontSize="21">Tamaño del espacio: </TextBlock>
+        <ComboBox Name="sizeChoice" BorderThickness="1" BorderBrush="SteelBlue" FontSize="21" Margin="10,300,814,319" SelectionChanged="SizeChoice_SelectionChanged">
             <ComboBoxItem Name="sizeOne">600x800</ComboBoxItem>
             <ComboBoxItem Name="sizeTwo">400x600</ComboBoxItem>
             <ComboBoxItem Name="sizeThree">200x400</ComboBoxItem>
         </ComboBox>
-        <TextBlock Name="backgroundText" FontSize="25" Margin="10,348,814,255">Piso: </TextBlock>
-        <ComboBox Name="backgroundChoice" FontSize="25" Margin="10,406,814,206" SelectionChanged="BackgroundChoice_SelectionChanged">
+        <TextBlock Name="backgroundText" FontSize="21" Margin="10,378,814,240">Piso: </TextBlock>
+        <ComboBox Name="backgroundChoice"  BorderThickness="1" BorderBrush="SteelBlue" FontSize="21" Margin="10,421,814,197" SelectionChanged="BackgroundChoice_SelectionChanged">
             <ComboBoxItem Name="pisoUno">Ajedrez</ComboBoxItem>
             <ComboBoxItem Name="pisoDos">Madera</ComboBoxItem>
         </ComboBox>
-        <ListBox Name="toolBox" Width="456" Margin="10,10,814,444">
+        <ListBox Name="toolBox" BorderThickness="1" BorderBrush="SteelBlue" Width="456" Margin="10,10,814,444">
             <ListBoxItem Name="itemMesaCuad">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="table.png" Height="50" Width="50"></Image>
@@ -33,31 +34,32 @@
                     <TextBlock Text=" Mesa redonda" FontSize="27"></TextBlock>
                 </StackPanel>
             </ListBoxItem>
-            <ListBoxItem Name="itemSilla" FontSize="25">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="chair.png" Height="50" Width="50"></Image>
-                    <TextBlock Text=" Silla" FontSize="27"></TextBlock>
-                </StackPanel>
-            </ListBoxItem>
-            <ListBoxItem Name="itemTabur" FontSize="25">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="stool.png" Height="50" Width="50"></Image>
-                    <TextBlock Text=" Taburete" FontSize="27"></TextBlock>
-                </StackPanel>
-            </ListBoxItem>
             <ListBoxItem Name="itemPared" FontSize="25">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="wall.png" Height="50" Width="50"></Image>
                     <TextBlock Text=" Pared" FontSize="27"></TextBlock>
                 </StackPanel>
             </ListBoxItem>
+            <ListBoxItem Name="itemSilla" FontSize="25">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="chair.png" Height="30" Width="30"></Image>
+                    <TextBlock Text=" Silla" FontSize="27"></TextBlock>
+                </StackPanel>
+            </ListBoxItem>
+            <ListBoxItem Name="itemTabur" FontSize="25">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="stool.png" Height="30" Width="30"></Image>
+                    <TextBlock Text=" Taburete" FontSize="27"></TextBlock>
+                </StackPanel>
+            </ListBoxItem>
+            
 
         </ListBox>
         
-        <Canvas Name="designSpace"   Height="600" Width="800" Margin="480,32,0,24" MouseLeftButtonDown="DesignSpace_MouseLeftButtonDown" MouseLeftButtonUp="DesignSpace_MouseLeftButtonUp" MouseMove="DesignSpace_MouseMove" MouseRightButtonDown="DesignSpace_MouseRightButtonDown">
+        <Canvas Name="designSpace"   Height="600" Width="800" Margin="480,32,0,24" MouseLeftButtonDown="DesignSpace_MouseLeftButtonDown" MouseLeftButtonUp="DesignSpace_MouseLeftButtonUp" MouseMove="DesignSpace_MouseMove" MouseRightButtonDown="DesignSpace_MouseRightButtonDown" >
             
         </Canvas>
 
 
     </Grid>
-</Window>
+</Controls:MetroWindow>

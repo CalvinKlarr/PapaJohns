@@ -1,4 +1,5 @@
-﻿using PapaJohnsCODE;
+﻿using MahApps.Metro.Controls;
+using PapaJohnsCODE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace PapaJohns
     /// <summary>
     /// Lógica de interacción para Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class Window1 : MetroWindow
     {
         private Point mouseClick;
         private Image draggedImage;
@@ -34,6 +35,8 @@ namespace PapaJohns
             InitializeComponent();
             toolBox.MouseDoubleClick += ToolBox_MouseDoubleClick;
             mesas = new Dictionary<Image, Mesa>();
+            backgroundChoice.SelectedItem = pisoDos;
+            sizeChoice.SelectedItem = sizeOne;
 
 
         }
