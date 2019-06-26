@@ -275,6 +275,12 @@ namespace PapaJohns
                 designSpace.Children.Remove(image);
             }
         }
+        //Aca hace una carga, tenes que cargar el objeto designSpace, osea sacarlo del archivo y asignarlo al que ya esta
+        //y lo mismo con el diccionario
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 
