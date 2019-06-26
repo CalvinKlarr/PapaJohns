@@ -56,7 +56,7 @@
 
         </ListBox>
         
-        <Canvas Name="designSpace"   Height="600" Width="800" Margin="480,32,0,24" MouseLeftButtonDown="DesignSpace_MouseLeftButtonDown" MouseLeftButtonUp="DesignSpace_MouseLeftButtonUp" MouseMove="DesignSpace_MouseMove" MouseRightButtonDown="DesignSpace_MouseRightButtonDown" >
+        <Canvas Name="designSpace"   Height="600" Width="800" Margin="480,32,0,24" MouseLeftButtonDown="DesignSpace_MouseLeftButtonDown" MouseLeftButtonUp="DesignSpace_MouseLeftButtonUp" MouseMove="DesignSpace_MouseMove" MouseRightButtonDown="DesignSpace_MouseRightButtonDown" MouseWheel="DesignSpace_MouseWheel" >
             
         </Canvas>
 

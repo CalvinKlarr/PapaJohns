@@ -266,9 +266,17 @@ namespace PapaJohns
             streamwriter.Close();
             filestream.Close();
         }
+
+        private void DesignSpace_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var image = e.Source as Image;
+
+            designSpace.Children.Remove(image);
+
+        }
     }
 
 
 
 }
-}
+
