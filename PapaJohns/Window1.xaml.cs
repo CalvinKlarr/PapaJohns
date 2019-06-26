@@ -270,9 +270,10 @@ namespace PapaJohns
         private void DesignSpace_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             var image = e.Source as Image;
-
-            designSpace.Children.Remove(image);
-
+            if (image != null)
+            {
+                designSpace.Children.Remove(image);
+            }
         }
     }
 
