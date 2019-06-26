@@ -251,9 +251,9 @@ namespace PapaJohns
             SerializeToXML(mainWindow, designSpace, 96, sfd.FileName);
             //}
 
+          
 
-
-
+              mainWindow.Close();
 
         }
 
