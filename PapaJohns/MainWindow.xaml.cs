@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using PapaJohnsCODE;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,15 @@ namespace PapaJohns
         {
             Window1 window1 = new Window1();
             window1.Show();
+        }
+        //Aca tenes que hacer la carga a los dos objetos nuevos esos, y mandarselos por parametro a window2 
+        private void ViewTile_Click(object sender, RoutedEventArgs e)
+        {
+            Canvas canvas = new Canvas();
+            Dictionary<Image,Mesa > mesas = new Dictionary<Image, Mesa>();
+            Window2 window2 = new Window2(canvas, mesas);
+            window2.Show();
+
         }
     }
 }

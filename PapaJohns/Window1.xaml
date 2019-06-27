@@ -9,8 +9,8 @@
         Title="MainWindow" Height="700" Width="1300" ShowTitleBar="False" Background="LightSteelBlue"  WindowStartupLocation="CenterScreen">
 
     <Grid Name="generalPanel" Margin="10,0,2,13">
-        <Button Name="saveButton" Content="Guardar" Margin="0,494,814,110" FontSize="24" BorderThickness="1" BorderBrush="Black" Click="SaveButton_Click"/>
-        <Button Name="loadButton" Content="Cargar" Margin="0,564,814,40" FontSize="24" BorderBrush="Black" BorderThickness="1" Click="LoadButton_Click"/>
+        <Button Name="saveButton" Content="Guardar" Margin="0,494,814,122" FontSize="21" BorderThickness="1" BorderBrush="Black" Click="SaveButton_Click"/>
+        <Button Name="loadButton" Content="Cargar" Margin="0,594,814,24" FontSize="21" BorderBrush="Black" BorderThickness="1" Click="LoadButton_Click"/>
         <TextBlock Name="sizeName" Margin="10,245,814,361" FontSize="21">Tamaño del espacio: </TextBlock>
         <ComboBox Name="sizeChoice" BorderThickness="1" BorderBrush="SteelBlue" FontSize="21" Margin="10,300,814,319" SelectionChanged="SizeChoice_SelectionChanged">
             <ComboBoxItem Name="sizeOne">600x800</ComboBoxItem>

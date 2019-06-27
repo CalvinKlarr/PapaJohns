@@ -7,9 +7,20 @@
         
         xmlns:local="clr-namespace:PapaJohns"
         mc:Ignorable="d"
-        Title="Papa John's" Height="700"  Width="1300" BorderThickness="0" GlowBrush="Black" ShowTitleBar="False" WindowStartupLocation="CenterScreen">
+        Title="Papa John's" Height="300"  Width="600" BorderThickness="0" GlowBrush="Black" ShowTitleBar="False" WindowStartupLocation="CenterScreen">
 
-    <Grid>
-        <Button Name="editButton" Content="Editar" Margin="58,70,616,440" Click="EditButton_Click"></Button>
+    <Grid Margin="0,0,0,-21">
+
+        <Controls:Tile Name="editTile" Title="Edit" FontSize="23" Click="EditButton_Click" Margin="110,71,342,79">
+            <Controls:Tile.Content>
+                <Image Source="editIcon.png" Height="80" Width="83" VerticalAlignment="Top" />
+
+            </Controls:Tile.Content>
+        </Controls:Tile>
+        <Controls:Tile Name="viewTile" Title="View"  FontSize="23" Click="ViewTile_Click" Margin="353,71,99,79">
+            <Controls:Tile.Content>
+                <Image Source="viewIcon.png" Height="80" Width="90" />
+            </Controls:Tile.Content>
+        </Controls:Tile>
     </Grid>
 </Controls:MetroWindow>
