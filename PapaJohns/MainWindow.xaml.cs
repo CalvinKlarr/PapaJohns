@@ -36,7 +36,7 @@ namespace PapaJohns
         private void ViewTile_Click(object sender, RoutedEventArgs e)
         {
             Canvas canvas = new Canvas();
-            Dictionary<Image,Mesa > mesas = new Dictionary<Image, Mesa>();
+            Dictionary<Image,Mesa> mesas = new Dictionary<Image, Mesa>();
             Window2 window2 = new Window2(canvas, mesas);
             window2.Show();
 
