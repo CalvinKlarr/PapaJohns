@@ -17,9 +17,8 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
-
-
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace PapaJohns
 {
@@ -204,6 +203,7 @@ namespace PapaJohns
             
         }
 
+
         private void DesignSpace_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             var image = e.Source as Image;
@@ -220,52 +220,7 @@ namespace PapaJohns
                 image.RenderTransform = rotate;
             }
         }
-        //En este evento se realiza el guardado, las cosas a guardar son el Canvas, nombre designSpace y el diccionario mesas
-        //idealmente hay que guardarlos en un mismo archivo.
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
 
-            string json = JsonConvert.SerializeObject(mesas);
-            //string json2 = JsonConvert.SerializeObject(designSpace);
-
-            string[] savefile = new string[] { json };
-
-            SaveFileDialog sfd = new SaveFileDialog();
-
-
-            sfd.FileName = "untitled";
-            sfd.Filter = "Json Files(*.json) | *.json | Text Files(*.txt) | *.txt | All Files(*.*) | *.*  ";
-            //   sfd.DefaultExt = "json";
-
-            sfd.ShowDialog();
-
-
-            File.WriteAllLines(sfd.FileName, savefile);
-
-            //   Nullable<bool> result = sfd.ShowDialog();
-
-            MainWindow mainWindow = new MainWindow();
-
-            //if (result == true)
-            //{
-            SerializeToXML(mainWindow, designSpace, 96, sfd.FileName);
-            //}
-
-          
-
-              mainWindow.Close();
-
-        }
-
-        public static void SerializeToXML(MainWindow window, Canvas canvas, int dpi, string filename)
-        {
-            string mystrXAML = XamlWriter.Save(canvas);
-            FileStream filestream = File.Create(filename);
-            StreamWriter streamwriter = new StreamWriter(filestream);
-            streamwriter.Write(mystrXAML);
-            streamwriter.Close();
-            filestream.Close();
-        }
 
         private void DesignSpace_MouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -275,11 +230,206 @@ namespace PapaJohns
                 designSpace.Children.Remove(image);
             }
         }
+
+
+
+        //En este evento se realiza el guardado, las cosas a guardar son el Canvas, nombre designSpace y el diccionario mesas
+        //idealmente hay que guardarlos en un mismo archivo.
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            // string json = JsonConvert.SerializeObject(mesas);
+            //string json2 = JsonConvert.SerializeObject(designSpace);
+
+            //  string[] savefile = new string[] { json };
+
+            /*  SaveFileDialog sfd = new SaveFileDialog();
+
+              sfd.FileName = "untitled";
+              sfd.Filter = "XML Files(*.xml) | *.xml | Text Files(*.txt) | *.txt | All Files(*.*) | *.*  ";
+              //   sfd.DefaultExt = "json";
+
+              sfd.ShowDialog();
+
+             // File.WriteAllLines(sfd.FileName, savefile);
+
+              //   Nullable<bool> result = sfd.ShowDialog();
+              MainWindow mainWindow = new MainWindow();
+              //if (result == true)
+              //{
+              SerializeToXML(mainWindow, designSpace, 96, sfd.FileName);
+              //}
+                mainWindow.Close();
+                */
+
+
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "UIElement File"; // Default file name
+            dlg.DefaultExt = ".xaml"; // Default file extension
+            dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                string filename = dlg.FileName;
+                SerializeToXAML(designSpace, filename);
+            }
+
+
+
+
+        }
+
+        public static void SerializeToXML(MainWindow window, Canvas canvas, int dpi, string filename)
+        {
+
+            string mystrXAML = XamlWriter.Save(canvas);
+
+            FileStream filestream = File.Create(filename);
+            StreamWriter streamwriter = new StreamWriter(filestream);
+            streamwriter.Write(mystrXAML);
+            streamwriter.Close();
+            filestream.Close();
+        }
+
+
+
+        public static UIElement DeSerializeXAML(string filename)
+        {
+            // Load XAML from file. Use 'using' so objects are disposed of properly.
+            using (System.IO.FileStream fs = System.IO.File.Open(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            {
+                return System.Windows.Markup.XamlReader.Load(fs) as UIElement;
+            }
+        }
+
+        // Serializes any UIElement object to XAML using a given filename.
+        public static void SerializeToXAML(UIElement element, string filename)
+        {
+            // Use XamlWriter object to serialize element
+            string strXAML = System.Windows.Markup.XamlWriter.Save(element);
+
+            // Write XAML to file. Use 'using' so objects are disposed of properly.
+            using (System.IO.FileStream fs = System.IO.File.Create(filename))
+            {
+                using (System.IO.StreamWriter streamwriter = new System.IO.StreamWriter(fs))
+                {
+                    streamwriter.Write(strXAML);
+                }
+            }
+        }
+
+
+
         //Aca hace una carga, tenes que cargar el objeto designSpace, osea sacarlo del archivo y asignarlo al que ya esta
         //y lo mismo con el diccionario
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
+            /* var fileContent = string.Empty;
+             OpenFileDialog ofd = new OpenFileDialog();
+             ofd.InitialDirectory = "c:\\";
+             ofd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+             ofd.FilterIndex = 2;
+             ofd.RestoreDirectory = true;
 
+              ofd.ShowDialog();
+
+             //Read the contents of the file into a stream
+             var fileStream = ofd.OpenFile();
+             string boi = ofd.FileName;
+
+             using (StreamReader reader = new StreamReader(fileStream))
+             {
+                 fileContent = reader.ReadToEnd();
+                 designSpace = XmlSerializer
+                     //.DeserializeObject<Canvas>(fileContent);
+             }
+
+
+
+
+
+             // Create an instance of the XmlSerializer specifying type.
+             XmlSerializer serializer =
+             new XmlSerializer(typeof(Canvas));
+
+             // Create a TextReader to read the file. 
+             FileStream fs = new FileStream(boi, FileMode.Open);
+             TextReader reader = new StreamReader(fs);
+
+             // Declare an object variable of the type to be deserialized.
+             //OrderedItem i;
+
+             // Use the Deserialize method to restore the object's state.
+             designSpace = (Canvas)serializer.Deserialize(reader);
+             */
+
+
+
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".xaml"; // Default file extension
+            dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+                Canvas canvas = DeSerializeXAML(filename) as Canvas;
+
+                // Add all child elements (lines, rectangles etc) to canvas
+                while (canvas.Children.Count > 0)
+                {
+                    UIElement obj = canvas.Children[0]; // Get next child
+                    canvas.Children.Remove(obj); // Have to disconnect it from result before we can add it
+                    designSpace.Children.Add(obj); // Add to canvas
+                }
+            }
+
+
+
+
+        }
+
+        public void LoadJson()
+        {
+            using (StreamReader r = new StreamReader("file.json"))
+            {
+                string json = r.ReadToEnd();
+                List<Mesa> items = JsonConvert.DeserializeObject<List<Mesa>>(json);
+            }
+        }
+
+
+
+
+        // <summary>
+        // Reads an object instance from an Json file.
+        // <para>Object type must have a parameterless constructor.</para>
+        // </summary>
+        // <typeparam name="T">The type of object to read from the file.</typeparam>
+        // <param name="filePath">The file path to read the object instance from.</param>
+        // <returns>Returns a new instance of the object read from the Json file.</returns>
+        public static Canvas ReadFromJsonFile<Canvas>(string filePath)
+        {
+            TextReader reader = null;
+            try
+            {
+                reader = new StreamReader(filePath);
+                var fileContents = reader.ReadToEnd();
+                return JsonConvert.DeserializeObject<Canvas>(fileContents);
+            }
+            finally
+            {
+                if (reader != null)
+                    reader.Close();
+            }
         }
     }
 
