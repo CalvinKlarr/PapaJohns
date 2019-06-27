@@ -273,6 +273,7 @@ namespace PapaJohns
             if (image != null)
             {
                 designSpace.Children.Remove(image);
+                mesas.Remove(image);
             }
         }
         //Aca hace una carga, tenes que cargar el objeto designSpace, osea sacarlo del archivo y asignarlo al que ya esta
