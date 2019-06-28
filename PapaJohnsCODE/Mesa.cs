@@ -20,6 +20,7 @@ namespace PapaJohnsCODE
         private int consumo;
         public int Consumo { get { return consumo; } set { this.consumo = value; } }
 
+
         public Mozo mozito;
 
         public Mesa()

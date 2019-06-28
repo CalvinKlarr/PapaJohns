@@ -1,7 +1,9 @@
 ﻿using MahApps.Metro.Controls;
+using Microsoft.Win32;
 using PapaJohnsCODE;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Serialization;
 
 namespace PapaJohns
 {
@@ -36,10 +39,60 @@ namespace PapaJohns
         private void ViewTile_Click(object sender, RoutedEventArgs e)
         {
             Canvas canvas = new Canvas();
-            Dictionary<Image,Mesa> mesas = new Dictionary<Image, Mesa>();
+            Dictionary<Image, Mesa> mesas = new Dictionary<Image, Mesa>();
+
+            //OPEN CANVAS
+
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".xaml"; // Default file extension
+            dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+                Canvas canvus = Window1.DeSerializeXAML(filename) as Canvas;
+
+                // Add all child elements (lines, rectangles etc) to canvas
+                while (canvus.Children.Count > 0)
+                {
+                    UIElement obj = canvus.Children[0]; // Get next child
+                    canvus.Children.Remove(obj); // Have to disconnect it from result before we can add it
+                    canvas.Children.Add(obj); // Add to canvas
+                }
+            }
+
+            //OPEN RELACIONES
+
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            ofd.DefaultExt = ".xaml"; // Default file extension
+            ofd.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+            ofd.ShowDialog();
+
+            // Create an instance of the XmlSerializer.
+            XmlSerializer serializer = new XmlSerializer(typeof(Dictionary<Image, Mesa>));
+
+            // Declare an object variable of the type to be deserialized.
+
+
+            using (Stream reader = new FileStream(ofd.FileName, FileMode.Open))
+            {
+                // Call the Deserialize method to restore the object's state.
+                mesas = (Dictionary<Image, Mesa>)serializer.Deserialize(reader);
+            }
+
+
+
+
             Window2 window2 = new Window2(canvas, mesas);
             window2.Show();
 
         }
+
     }
 }

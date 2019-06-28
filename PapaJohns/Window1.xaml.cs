@@ -17,9 +17,9 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
-
-
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace PapaJohns
 {
@@ -220,22 +220,238 @@ namespace PapaJohns
                 image.RenderTransform = rotate;
             }
         }
+
+        private void DesignSpace_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            var image = e.Source as Image;
+            if (image != null)
+            {
+                designSpace.Children.Remove(image);
+                mesas.Remove(image);
+            }
+        }
+
+        //This no anda jeje
+        private void ClearCanvas()
+        {
+            // Remove existing segments.
+            for (int i = designSpace.Children.Count - 1; i >= 0; i--)
+            {
+                if (designSpace.Children[i] is Line)
+                    designSpace.Children.RemoveAt(i);
+            }
+        }
+
+
+
+
+
+        // De-Serialize XML to UIElement using a given filename.
+        public static UIElement DeSerializeXAML(string filename)
+        {
+            // Load XAML from file. Use 'using' so objects are disposed of properly.
+            using (System.IO.FileStream fs = System.IO.File.Open(filename, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+            {
+                return System.Windows.Markup.XamlReader.Load(fs) as UIElement;
+            }
+        }
+
+        // Serializes any UIElement object to XAML using a given filename.
+        public static void SerializeToXAML(UIElement element, string filename)
+        {
+            // Use XamlWriter object to serialize element
+            string strXAML = System.Windows.Markup.XamlWriter.Save(element);
+
+            // Write XAML to file. Use 'using' so objects are disposed of properly.
+            using (System.IO.FileStream fs = System.IO.File.Create(filename))
+            {
+                using (System.IO.StreamWriter streamwriter = new System.IO.StreamWriter(fs))
+                {
+                    streamwriter.Write(strXAML);
+                }
+            }
+        }
+
+
+        //=================================================================================
+        //SAVE AND LOAD DE CANVAS
+        //=================================================================================
+
         //En este evento se realiza el guardado, las cosas a guardar son el Canvas, nombre designSpace y el diccionario mesas
         //idealmente hay que guardarlos en un mismo archivo.
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
 
-            string json = JsonConvert.SerializeObject(mesas);
-            //string json2 = JsonConvert.SerializeObject(designSpace);
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "UIElement File"; // Default file name
+            dlg.DefaultExt = ".xaml"; // Default file extension
+            dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+            // Show save file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Process save file dialog box results
+            if (result == true)
+            {
+                // Save document
+                string filename = dlg.FileName;
+                SerializeToXAML(designSpace, filename);
+            }
+        }
+
+        //Aca hace una carga, tenes que cargar el objeto designSpace, osea sacarlo del archivo y asignarlo al que ya esta
+        //y lo mismo con el diccionario
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".xaml"; // Default file extension
+            dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+            // Show open file dialog box
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Remove existing segments.
+            ClearCanvas();
+
+            // Process open file dialog box results
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+                Canvas canvas = DeSerializeXAML(filename) as Canvas;
+
+                // Add all child elements (lines, rectangles etc) to canvas
+                while (canvas.Children.Count > 0)
+                {
+                    UIElement obj = canvas.Children[0]; // Get next child
+                    canvas.Children.Remove(obj); // Have to disconnect it from result before we can add it
+                    designSpace.Children.Add(obj); // Add to canvas
+                }
+            }
+
+        }
+
+
+
+
+
+
+
+        //=================================================================================
+        //SAVE AND LOAD DE MESAS
+        //=================================================================================
+
+        // <summary>
+        // Serializes an object.
+        // </summary>
+        // <typeparam name="T"></typeparam>
+        // <param name="serializableObject"></param>
+        // <param name="fileName"></param>
+        /*    public void SerializeObject<Dictionary>(Dictionary<Image,Mesa> serializableObject, string fileName)
+           {
+                if (serializableObject == null) { return; }
+
+
+                     XmlDocument xmlDocument = new XmlDocument();
+                     XmlSerializer serializer = new XmlSerializer(serializableObject.GetType());
+                     using (MemoryStream stream = new MemoryStream())
+                     {
+                         serializer.Serialize(stream, serializableObject);
+                         stream.Position = 0;
+                         xmlDocument.Load(stream);
+                         xmlDocument.Save(fileName);
+                     }
+
+
+
+           }*/
+
+ 
+
+        private void SerializeObject(string filename)
+        {
+
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            XElement el = new XElement("root",
+                dict.Select(kv => new XElement(kv.Key, kv.Value)));
+
+
+
+
+
+
+
+
+            XmlSerializer serializer =
+            new XmlSerializer(typeof(Dictionary<Image,Mesa>));
+          //  Dictionary<Image,Mesa> i = new Dictionary<Image, Mesa>();
+       
+            // Create an XmlTextWriter using a FileStream.
+            Stream fs = new FileStream(filename, FileMode.Create);
+            XmlWriter writer =
+            new XmlTextWriter(fs, Encoding.Unicode);
+            // Serialize using the XmlTextWriter.
+            serializer.Serialize(writer, mesas);
+            writer.Close();
+        }
+
+
+        public void Serialize(Stream target)
+        {
+            // copy the values into an array:
+            var values = mesas.Values.ToArray();
+
+            // create the serializer:
+            var ser = new XmlSerializer(typeof(MesasListo[]));
+
+            // serialize into the stream
+            ser.Serialize(target, values);
+
+        }
+
+      /*  public static Window1 DeSerialize(Stream source)
+        {
+            var ser = new XmlSerializer(typeof(MesasListo[]));
+
+            // deserialize the array of values:
+            var values = (MesasListo[])ser.Deserialize(source);
+
+            // create the class:
+            var result = new Window1();
+
+            // reload the dictionary:
+            foreach (var v in values)
+            {
+               result.mesas[v.key] = v;
+            }
+
+            return mesas;
+        }*/
+
+
+
+        /*  public static void SerializeToXML(MainWindow window, Mesa mesitas, int dpi, string filename)
+          {
+              string mystrXAML = XamlWriter.Save(mesitas);
+              FileStream filestream = File.Create(filename);
+              StreamWriter streamwriter = new StreamWriter(filestream);
+              streamwriter.Write(mystrXAML);
+              streamwriter.Close();
+              filestream.Close();
+          }*/
+
+
+        private void SaveButton_2_Click(object sender, RoutedEventArgs e)
+        {
+
+            /*string json = JsonConvert.SerializeObject(mesas);
 
             string[] savefile = new string[] { json };
 
             SaveFileDialog sfd = new SaveFileDialog();
 
-
             sfd.FileName = "untitled";
             sfd.Filter = "Json Files(*.json) | *.json | Text Files(*.txt) | *.txt | All Files(*.*) | *.*  ";
-            //   sfd.DefaultExt = "json";
 
             sfd.ShowDialog();
 
@@ -251,50 +467,60 @@ namespace PapaJohns
             SerializeToXML(mainWindow, designSpace, 96, sfd.FileName);
             //}
 
-          
+              mainWindow.Close();  */
 
-              mainWindow.Close();
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.DefaultExt = ".xaml"; // Default file extension
+            sfd.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+           
+            sfd.ShowDialog();
+
+            SerializeObject(sfd.FileName);
+           /* Stream strim = new Stream();
+            Serialize();  */
+
+
 
         }
 
-        public static void SerializeToXML(MainWindow window, Canvas canvas, int dpi, string filename)
-        {
-            string mystrXAML = XamlWriter.Save(canvas);
-            FileStream filestream = File.Create(filename);
-            StreamWriter streamwriter = new StreamWriter(filestream);
-            streamwriter.Write(mystrXAML);
-            streamwriter.Close();
-            filestream.Close();
-        }
 
-        private void DesignSpace_MouseWheel(object sender, MouseWheelEventArgs e)
+        public void DeserializeObject(string filename)
         {
-            var image = e.Source as Image;
-            if (image != null)
+            // Create an instance of the XmlSerializer.
+            XmlSerializer serializer = new XmlSerializer(typeof(Dictionary<Image,Mesa>));
+
+            // Declare an object variable of the type to be deserialized.
+            
+
+            using (Stream reader = new FileStream(filename, FileMode.Open))
             {
-                designSpace.Children.Remove(image);
-                mesas.Remove(image);
+                // Call the Deserialize method to restore the object's state.
+                mesas = (Dictionary<Image,Mesa>)serializer.Deserialize(reader);
             }
         }
-        //Aca hace una carga, tenes que cargar el objeto designSpace, osea sacarlo del archivo y asignarlo al que ya esta
-        //y lo mismo con el diccionario
-        private void LoadButton_Click(object sender, RoutedEventArgs e)
+
+
+            private void LoadButton_2_Click(object sender, RoutedEventArgs e)
         {
 
-        }
+            OpenFileDialog ofd = new OpenFileDialog();
 
-        private void SaveButton_2_Click(object sender, RoutedEventArgs e)
-        {
+            ofd.DefaultExt = ".xaml"; // Default file extension
+            ofd.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
 
-        }
-        // Segundo manejador que pediste
-        private void LoadButton_2_Click(object sender, RoutedEventArgs e)
-        {
+            ofd.ShowDialog();
+
+            DeserializeObject(ofd.FileName);
 
         }
     }
 
 
+    
+  
+    }
 
-}
+
+
 
