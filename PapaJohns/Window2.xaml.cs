@@ -48,9 +48,18 @@ namespace PapaJohns
                 // Add all child elements (lines, rectangles etc) to canvas
                 while (canvus.Children.Count > 0)
                 {
-                    UIElement obj = canvus.Children[0]; // Get next child
+                    var obj = canvus.Children[0] as Image; // Get next child
+                    if (obj != null)
+                    {
+                        if (obj.Name.Substring(0, 4) == "mesa")
+                        {
+                            obj.ContextMenu = new ContextMenu();
+                        }
+                    }
                     canvus.Children.Remove(obj); // Have to disconnect it from result before we can add it
+                    
                     designCanvas.Children.Add(obj); // Add to canvas
+
                 }
                 designCanvas.Background = canvus.Background;
             }

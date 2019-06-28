@@ -38,10 +38,6 @@ namespace PapaJohns
         //Aca tenes que hacer la carga a los dos objetos nuevos esos, y mandarselos por parametro a window2 
         private void ViewTile_Click(object sender, RoutedEventArgs e)
         {
-            
-
-        
-
 
             Window2 window2 = new Window2();
             window2.Show();
