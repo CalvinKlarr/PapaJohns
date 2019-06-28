@@ -33,7 +33,7 @@ namespace PapaJohns
         private double rotation = 0;
         private List<MesasListo> mesas;
         private Mesa mesa;
-        
+
         public Window1()
         {
             InitializeComponent();
@@ -50,7 +50,7 @@ namespace PapaJohns
             if (toolBox.SelectedItem != null)
             {
                 ListBoxItem lbItem = (ListBoxItem)toolBox.SelectedItem;
-                
+
 
                 StackPanel stack = (StackPanel)lbItem.Content;
 
@@ -58,14 +58,14 @@ namespace PapaJohns
                 string selected = "";
                 foreach (var child in stack.Children)
                 {
-                    if(child.GetType().ToString() == "System.Windows.Controls.TextBlock")
+                    if (child.GetType().ToString() == "System.Windows.Controls.TextBlock")
                     {
-                        text = (TextBlock) child;
+                        text = (TextBlock)child;
                         selected = text.Text;
                     }
                 }
-                
-                if(selected == " Mesa")
+
+                if (selected == " Mesa")
                 {
                     Image table = new Image();
                     table.Source = new BitmapImage(new Uri("table.png", UriKind.Relative));
@@ -79,9 +79,9 @@ namespace PapaJohns
                     mesalisto.mesa = mesa;
                     mesas.Add(mesalisto);
                     designSpace.Children.Add(table);
-                    
+
                 }
-                if(selected == " Silla")
+                if (selected == " Silla")
                 {
                     Image chair = new Image();
                     chair.Source = new BitmapImage(new Uri("chair.png", UriKind.Relative));
@@ -118,7 +118,7 @@ namespace PapaJohns
                     Canvas.SetTop(stool, 0);
                     designSpace.Children.Add(stool);
                 }
-                if(selected == " Pared")
+                if (selected == " Pared")
                 {
                     Image wall = new Image();
                     wall.Source = new BitmapImage(new Uri("wall.png", UriKind.Relative));
@@ -135,7 +135,7 @@ namespace PapaJohns
         {
             var image = e.Source as Image;
 
-            if(image != null && designSpace.CaptureMouse())
+            if (image != null && designSpace.CaptureMouse())
             {
                 mouseClick = e.GetPosition(designSpace);
                 draggedImage = image;
@@ -146,7 +146,7 @@ namespace PapaJohns
 
         private void DesignSpace_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            if(draggedImage != null)
+            if (draggedImage != null)
             {
                 designSpace.ReleaseMouseCapture();
                 Panel.SetZIndex(draggedImage, 0);
@@ -157,7 +157,7 @@ namespace PapaJohns
 
         private void DesignSpace_MouseMove(object sender, MouseEventArgs e)
         {
-            if(draggedImage != null)
+            if (draggedImage != null)
             {
                 var position = e.GetPosition(designSpace);
                 var offset = position - mouseClick;
@@ -200,7 +200,7 @@ namespace PapaJohns
                 ib.ImageSource = new BitmapImage(new Uri("../../board.png", UriKind.Relative));
                 ib.Stretch = Stretch.Fill;
                 designSpace.Background = ib;
-                
+
             }
             if (backgroundChoice.SelectedItem.Equals(pisoDos))
             {
@@ -208,15 +208,16 @@ namespace PapaJohns
                 ib.Stretch = Stretch.Fill;
                 designSpace.Background = ib;
             }
-            
+
         }
 
         private void DesignSpace_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             var image = e.Source as Image;
-            if(image != null)
+            if (image != null)
             {
-                if(rotation >= 360) {
+                if (rotation >= 360)
+                {
                     rotation = 0;
 
                 }
@@ -236,7 +237,7 @@ namespace PapaJohns
                 designSpace.Children.Remove(image);
                 foreach (var m in mesas)
                 {
-                    if(m.key == image)
+                    if (m.key == image)
                     {
                         mesas.Remove(m);
                     }
@@ -252,7 +253,7 @@ namespace PapaJohns
             for (int i = designSpace.Children.Count - 1; i >= 0; i--)
             {
                 if (designSpace.Children[i] is Line)
-                    
+
                     designSpace.Children.RemoveAt(i);
             }
         }
@@ -356,164 +357,67 @@ namespace PapaJohns
         //SAVE AND LOAD DE MESAS
         //=================================================================================
 
-        // <summary>
-        // Serializes an object.
-        // </summary>
-        // <typeparam name="T"></typeparam>
-        // <param name="serializableObject"></param>
-        // <param name="fileName"></param>
-        /*    public void SerializeObject<Dictionary>(Dictionary<Image,Mesa> serializableObject, string fileName)
-           {
-                if (serializableObject == null) { return; }
-
-
-                     XmlDocument xmlDocument = new XmlDocument();
-                     XmlSerializer serializer = new XmlSerializer(serializableObject.GetType());
-                     using (MemoryStream stream = new MemoryStream())
-                     {
-                         serializer.Serialize(stream, serializableObject);
-                         stream.Position = 0;
-                         xmlDocument.Load(stream);
-                         xmlDocument.Save(fileName);
-                     }
 
 
 
-           }*/
-
- 
+        public static void SerializeToXML(MainWindow window, Mesa mesitas, int dpi, string filename)
+        {
+            string mystrXAML = XamlWriter.Save(mesitas);
+            FileStream filestream = File.Create(filename);
+            StreamWriter streamwriter = new StreamWriter(filestream);
+            streamwriter.Write(mystrXAML);
+            streamwriter.Close();
+            filestream.Close();
+        }
 
         private void SerializeObject(string filename)
         {
 
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            XElement el = new XElement("root",
-                dict.Select(kv => new XElement(kv.Key, kv.Value)));
+            XmlSerializer serializer =new XmlSerializer(typeof(List<MesasListo>));
+            List<MesasListo> i = new List<MesasListo>();
 
-
-
-            XmlSerializer serializer =
-            new XmlSerializer(typeof(Dictionary<Image,Mesa>));
-          //  Dictionary<Image,Mesa> i = new Dictionary<Image, Mesa>();
-       
             // Create an XmlTextWriter using a FileStream.
             Stream fs = new FileStream(filename, FileMode.Create);
-            XmlWriter writer =
-            new XmlTextWriter(fs, Encoding.Unicode);
+            XmlWriter writer = new XmlTextWriter(fs, Encoding.Unicode);
             // Serialize using the XmlTextWriter.
-            serializer.Serialize(writer, mesas);
+            serializer.Serialize(writer, i);
             writer.Close();
         }
 
-/*
-        public void Serialize(Stream target)
-        {
-            // copy the values into an array:
-            var values = mesas.Values.ToArray();
-
-            // create the serializer:
-            var ser = new XmlSerializer(typeof(MesasListo[]));
-
-            // serialize into the stream
-            ser.Serialize(target, values);
-
-        }
-        */
-
-    /*    public static Window1 DeSerialize(Stream source)
-        {
-            var ser = new XmlSerializer(typeof(MesasListo[]));
-
-            // deserialize the array of values:
-            var values = (MesasListo[])ser.Deserialize(source);
-
-            // create the class:
-            var result = new Window1();
-
-            // reload the dictionary:
-            foreach (var v in values)
-            {
-               result.mesas[v.key] = v;
-            }
-
-            return mesas;
-        } */
 
 
 
-        /*  public static void SerializeToXML(MainWindow window, Mesa mesitas, int dpi, string filename)
-          {
-              string mystrXAML = XamlWriter.Save(mesitas);
-              FileStream filestream = File.Create(filename);
-              StreamWriter streamwriter = new StreamWriter(filestream);
-              streamwriter.Write(mystrXAML);
-              streamwriter.Close();
-              filestream.Close();
-          }*/
 
 
         private void SaveButton_2_Click(object sender, RoutedEventArgs e)
         {
 
-            /*string json = JsonConvert.SerializeObject(mesas);
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+            dlg.FileName = "UIElement File"; // Default file name
+            dlg.DefaultExt = ".xaml"; // Default file extension
+            dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
 
-            string[] savefile = new string[] { json };
-
-            SaveFileDialog sfd = new SaveFileDialog();
-
-            sfd.FileName = "untitled";
-            sfd.Filter = "Json Files(*.json) | *.json | Text Files(*.txt) | *.txt | All Files(*.*) | *.*  ";
-
-            sfd.ShowDialog();
-
-
-            File.WriteAllLines(sfd.FileName, savefile);
-
-            //   Nullable<bool> result = sfd.ShowDialog();
-
-            MainWindow mainWindow = new MainWindow();
-
-            //if (result == true)
-            //{
-            SerializeToXML(mainWindow, designSpace, 96, sfd.FileName);
-            //}
-
-              mainWindow.Close();  */
-
-            SaveFileDialog sfd = new SaveFileDialog();
-
-            sfd.DefaultExt = ".xaml"; // Default file extension
-            sfd.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
-           
-            sfd.ShowDialog();
-
-            SerializeObject(sfd.FileName);
-           /* Stream strim = new Stream();
-            Serialize();  */
-
+            SerializeObject(dlg.FileName);
 
 
         }
 
-/*
-        public void DeserializeObject(string filename)
+
+        private void DeserializeObject(string filename)
         {
             // Create an instance of the XmlSerializer.
-            XmlSerializer serializer = new XmlSerializer(typeof(Dictionary<Image,Mesa>));
+            XmlSerializer serializer = new XmlSerializer(typeof(List<MesasListo>));
 
-            // Declare an object variable of the type to be deserialized.
-            
 
             using (Stream reader = new FileStream(filename, FileMode.Open))
             {
                 // Call the Deserialize method to restore the object's state.
-                mesas = (Dictionary<Image,Mesa>)serializer.Deserialize(reader);
+                mesas = (List<MesasListo>)serializer.Deserialize(reader);
             }
         }
-        */
 
 
-            private void LoadButton_2_Click(object sender, RoutedEventArgs e)
+        private void LoadButton_2_Click(object sender, RoutedEventArgs e)
         {
 
             OpenFileDialog ofd = new OpenFileDialog();
@@ -522,16 +426,13 @@ namespace PapaJohns
             ofd.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
 
             ofd.ShowDialog();
-/*
+
             DeserializeObject(ofd.FileName);
-            */
+
         }
     }
 
-
-    
-  
-    }
+}
 
 
 

@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace PapaJohns
 {
-    class MesasListo
+    public class MesasListo
     {
 
         public Mesa mesa { get; set; }
