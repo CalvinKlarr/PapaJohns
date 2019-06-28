@@ -31,16 +31,18 @@ namespace PapaJohns
         private Point mouseClick;
         private Image draggedImage;
         private double rotation = 0;
-        private List<MesasListo> mesas;
+        private List<Mesa> mesas;
+        private int cont;
         private Mesa mesa;
         
         public Window1()
         {
             InitializeComponent();
             toolBox.MouseDoubleClick += ToolBox_MouseDoubleClick;
-            mesas = new List<MesasListo>();
+            mesas = new List<Mesa>();
             backgroundChoice.SelectedItem = pisoDos;
             sizeChoice.SelectedItem = sizeOne;
+            cont = 0;
 
 
         }
@@ -71,13 +73,15 @@ namespace PapaJohns
                     table.Source = new BitmapImage(new Uri("table.png", UriKind.Relative));
                     table.Height = 50;
                     table.Width = 50;
+                    table.Name = "mesa" + cont;
+                    cont++;
                     Canvas.SetLeft(table, 0);
                     Canvas.SetTop(table, 0);
-                    MesasListo mesalisto = new MesasListo();
+                    
                     mesa = new Mesa();
-                    mesalisto.key = table;
-                    mesalisto.mesa = mesa;
-                    mesas.Add(mesalisto);
+                    mesa.ImageName = table.Name;
+                    
+                    mesas.Add(mesa);
                     designSpace.Children.Add(table);
                     
                 }
@@ -97,13 +101,14 @@ namespace PapaJohns
                     rtable.Source = new BitmapImage(new Uri("roundtable.png", UriKind.Relative));
                     rtable.Height = 50;
                     rtable.Width = 50;
+                    rtable.Name = "mesa" + cont;
+                    cont++;
                     Canvas.SetLeft(rtable, 0);
                     Canvas.SetTop(rtable, 0);
-                    MesasListo mesalisto = new MesasListo();
+                    
                     mesa = new Mesa();
-                    mesalisto.key = rtable;
-                    mesalisto.mesa = mesa;
-                    mesas.Add(mesalisto);
+                    mesa.ImageName = rtable.Name;
+                    mesas.Add(mesa);
                     designSpace.Children.Add(rtable);
                     //DICK
 
@@ -234,14 +239,8 @@ namespace PapaJohns
             if (image != null)
             {
                 designSpace.Children.Remove(image);
-                foreach (var m in mesas)
-                {
-                    if(m.key == image)
-                    {
-                        mesas.Remove(m);
-                    }
-
-                }
+                var mesa = mesas.Find(x => x.ImageName == image.Name);
+                mesas.Remove(mesa);
             }
         }
 
