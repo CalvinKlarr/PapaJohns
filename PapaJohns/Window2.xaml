@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Window2" Height="450" Width="800" Background="LightSteelBlue">
     <Grid>
-        <Canvas Name="designSpace" Margin="10,0,10,57">
+        <Canvas Name="designCanvas" Margin="10,0,10,57">
             
         </Canvas>
         <Button Name="saveButton"  ToolTip="Guardado del Canvas" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"   BorderBrush="Black" BorderThickness="2.5" Click="SaveButton_Click"  Margin="0,362,733,0">
