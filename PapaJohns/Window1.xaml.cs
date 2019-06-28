@@ -80,6 +80,7 @@ namespace PapaJohns
                     
                     mesa = new Mesa();
                     mesa.ImageName = table.Name;
+                    mesa.TipoDeMesa = "Cuadrada";
                     
                     mesas.Add(mesa);
                     designSpace.Children.Add(table);
@@ -91,6 +92,7 @@ namespace PapaJohns
                     chair.Source = new BitmapImage(new Uri("chair.png", UriKind.Relative));
                     chair.Height = 30;
                     chair.Width = 30;
+                    chair.Name = null;
                     Canvas.SetLeft(chair, 0);
                     Canvas.SetTop(chair, 0);
                     designSpace.Children.Add(chair);
@@ -108,6 +110,7 @@ namespace PapaJohns
                     
                     mesa = new Mesa();
                     mesa.ImageName = rtable.Name;
+                    mesa.TipoDeMesa = "Redonda";
                     mesas.Add(mesa);
                     designSpace.Children.Add(rtable);
                     //DICK
@@ -119,6 +122,7 @@ namespace PapaJohns
                     stool.Source = new BitmapImage(new Uri("stool.png", UriKind.Relative));
                     stool.Height = 30;
                     stool.Width = 30;
+                    stool.Name = null;
                     Canvas.SetLeft(stool, 0);
                     Canvas.SetTop(stool, 0);
                     designSpace.Children.Add(stool);
@@ -129,6 +133,7 @@ namespace PapaJohns
                     wall.Source = new BitmapImage(new Uri("wall.png", UriKind.Relative));
                     wall.Height = 50;
                     wall.Width = 50;
+                    wall.Name = null;
                     Canvas.SetLeft(wall, 0);
                     Canvas.SetTop(wall, 0);
                     designSpace.Children.Add(wall);
@@ -368,7 +373,7 @@ namespace PapaJohns
         {
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Mesa>));
-            List<Mesa> i = new List<Mesa>();
+            List<Mesa> i = mesas;
 
             // Create an XmlTextWriter using a FileStream.
             Stream fs = new FileStream(filename, FileMode.Create);

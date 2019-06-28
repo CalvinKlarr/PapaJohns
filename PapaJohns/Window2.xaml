@@ -6,33 +6,45 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:PapaJohns"
         mc:Ignorable="d"
-        Title="Window2" Height="450" Width="800" Background="LightSteelBlue">
+        Title="Edit" Height="700" Width="900" Background="LightSteelBlue" WindowStartupLocation="CenterScreen">
+    <Controls:MetroWindow.Resources>
+        <ContextMenu x:Key="mContext">
+            <MenuItem Name ="clienteItem" Header="Asignar cliente" Click="clienteItem_Click"/>
+            <MenuItem Name ="mozoItem" Header="Asignar mozo" Click="MozoItem_Click"/>
+            <MenuItem Name="reservacionItem" Header="Asignar reservacion" Click="ReservacionItem_Click"/>
+            <MenuItem Name="montoItem" Header="Asignar monto consumido" Click="MontoItem_Click"/>
+            <MenuItem Name="detailsItem" Header="Ver detalles" Click="DetailsItem_Click"/>
+        </ContextMenu>
+    </Controls:MetroWindow.Resources>
     <Grid>
         <Canvas Name="designCanvas" Margin="10,0,10,57">
-            
+
         </Canvas>
-        <Button Name="saveButton"  ToolTip="Guardado del Canvas" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"   BorderBrush="Black" BorderThickness="2.5" Click="SaveButton_Click"  Margin="0,362,733,0">
+        <Button Name="saveButton"  ToolTip="Guardado del Canvas" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"   BorderBrush="Black" BorderThickness="2.5" Click="SaveButton_Click"  Margin="0,612,835,0">
             <Button.Content>
                 <Image Source="saveIcon.png" Height="30"/>
             </Button.Content>
         </Button>
-        <Button Name="saveButton_2" BorderBrush="Black" ToolTip="Guardado de las relaciones" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" BorderThickness="2.5" Click="SaveButton_2_Click"  Margin="64,362,671,0" >
+        <Button Name="saveButton_2" BorderBrush="Black" ToolTip="Guardado de las relaciones" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" BorderThickness="2.5" Click="SaveButton_2_Click"  Margin="62,612,773,0" >
             <Button.Content>
                 <Image Source="saveIcon2.png" Height="30"/>
             </Button.Content>
         </Button>
-        <Button Name="loadButton" BorderBrush ="Black" ToolTip="Cargar el canvas" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" FontSize="21" Background="White" BorderThickness="2.5" Click="LoadButton_Click"  Margin="126,362,607,0" Height="57" VerticalAlignment="Top">
+        <Button Name="loadButton" BorderBrush ="Black" ToolTip="Cargar el canvas" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" FontSize="21" Background="White" BorderThickness="2.5" Click="LoadButton_Click"  Margin="124,612,711,0" Height="57" VerticalAlignment="Top">
             <Button.Content>
                 <Image Source="loadIcon.png" Height="30"/>
             </Button.Content>
         </Button>
-        <Button Name="loadButton_2" BorderBrush="Black" ToolTip="Cargar relaciones" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Background="White" BorderThickness="2.5" Click="LoadButton_2_Click"  Margin="190,362,543,0">
+        <Button Name="loadButton_2" BorderBrush="Black" ToolTip="Cargar relaciones" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Background="White" BorderThickness="2.5" Click="LoadButton_2_Click"  Margin="186,612,650,0">
             <Button.Content>
                 <Image Source="loadIcon.png" Height="30"/>
             </Button.Content>
         </Button>
-        
-        
-        
+        <Button Content="Agregar Mozo" Name="agregarMozo" FontSize="12" HorizontalAlignment="Left" Margin="373,617,0,10" Width="131" Click="AgregarMozo_Click"/>
+        <Button Content="Actualizar" Name="updateButton" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="131" Margin="527,617,0,0" Height="42" Click="UpdateButton_Click"/>
+        <Controls:DateTimePicker Name="datePicker" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="192" Height="42" Margin="0,0,10,10"/>
+
+
+
     </Grid>
 </Controls:MetroWindow>

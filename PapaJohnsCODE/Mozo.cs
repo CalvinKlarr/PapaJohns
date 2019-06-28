@@ -9,16 +9,16 @@ namespace PapaJohnsCODE
     public class Mozo
     {
 
-        public int id { get; set; }
+        public string nombre { get; set; }
 
-        public List<Mesa> mesas;
+        
 
 
-        public Mozo(Mesa meza)
+        
+
+        public override string ToString()
         {
-            this.mesas = new List<Mesa>();
-            mesas.Add(meza);
-
+            return ""+nombre;
         }
 
         public Mozo() { }
