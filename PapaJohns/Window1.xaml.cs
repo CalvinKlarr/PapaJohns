@@ -287,6 +287,11 @@ namespace PapaJohns
         {
 
         }
+        // Segundo manejador que pediste
+        private void LoadButton_2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 
