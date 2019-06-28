@@ -39,11 +39,12 @@ namespace PapaJohns
         private void ViewTile_Click(object sender, RoutedEventArgs e)
         {
             Canvas canvas = new Canvas();
-            Dictionary<Image, Mesa> mesas = new Dictionary<Image, Mesa>();
+             List<Mesa> mesas;
 
-            //OPEN CANVAS
+        //OPEN CANVAS
 
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+        Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+          //  dlg.FileName = "CANVAS";
             dlg.DefaultExt = ".xaml"; // Default file extension
             dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
 
@@ -67,26 +68,20 @@ namespace PapaJohns
 
             //OPEN RELACIONES
 
-            OpenFileDialog ofd = new OpenFileDialog();
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Mesa>));
 
+            OpenFileDialog ofd = new OpenFileDialog();
+           // ofd.FileName = "RELACIONES";
             ofd.DefaultExt = ".xaml"; // Default file extension
             ofd.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
 
             ofd.ShowDialog();
 
-            // Create an instance of the XmlSerializer.
-            XmlSerializer serializer = new XmlSerializer(typeof(Dictionary<Image, Mesa>));
-
-            // Declare an object variable of the type to be deserialized.
-
-
             using (Stream reader = new FileStream(ofd.FileName, FileMode.Open))
             {
                 // Call the Deserialize method to restore the object's state.
-                mesas = (Dictionary<Image, Mesa>)serializer.Deserialize(reader);
+                mesas = (List<Mesa>)serializer.Deserialize(reader);
             }
-
-
 
 
             Window2 window2 = new Window2(canvas, mesas);

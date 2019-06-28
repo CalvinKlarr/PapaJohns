@@ -21,13 +21,14 @@ namespace PapaJohns
     /// </summary>
     public partial class Window2 : MetroWindow
     {
-        Dictionary<Image, Mesa> mesas;
-        public Window2(Canvas design, Dictionary<Image,Mesa> dict)
+        List<Mesa> mesas;
+        public Window2(Canvas design, List<Mesa> dict)
         {
-            
-            InitializeComponent();
-            this.designSpace = design;
+            designSpace = design;
             mesas = dict;
+            InitializeComponent();
+
+           
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
