@@ -152,5 +152,14 @@
   <ItemGroup>
     <Resource Include="editIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="saveIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="saveIcon2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="loadIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
