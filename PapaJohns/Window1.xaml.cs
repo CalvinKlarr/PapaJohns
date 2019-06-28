@@ -354,7 +354,7 @@ namespace PapaJohns
 
 
 
-        public static void SerializeToXML(MainWindow window, Mesa mesitas, int dpi, string filename)
+    /*    public static void SerializeToXML(MainWindow window, Mesa mesitas, int dpi, string filename)
         {
             string mystrXAML = XamlWriter.Save(mesitas);
             FileStream filestream = File.Create(filename);
@@ -362,7 +362,7 @@ namespace PapaJohns
             streamwriter.Write(mystrXAML);
             streamwriter.Close();
             filestream.Close();
-        }
+        }*/
 
         private void SerializeObject(string filename)
         {
@@ -377,9 +377,6 @@ namespace PapaJohns
             serializer.Serialize(writer, i);
             writer.Close();
         }
-
-
-
 
 
 
