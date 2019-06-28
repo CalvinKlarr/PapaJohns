@@ -17,6 +17,9 @@ namespace PapaJohnsCODE
         private string cliente;
         public string Cliente { get { return cliente; } set { this.cliente = value; } }
 
+        private string imageName;
+        public string ImageName { get { return imageName; } set { this.imageName = value; } }
+
         private int consumo;
         public int Consumo { get { return consumo; } set { this.consumo = value; } }
 
