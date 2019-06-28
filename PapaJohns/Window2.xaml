@@ -21,7 +21,7 @@
                 <Image Source="saveIcon2.png" Height="30"/>
             </Button.Content>
         </Button>
-        <Button Name="loadButton" BorderBrush ="Black" ToolTip="Cargar el canvas" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" FontSize="21" Background="White" BorderThickness="2.5" Click="LoadButton_Click"  Margin="126,362,607,0">
+        <Button Name="loadButton" BorderBrush ="Black" ToolTip="Cargar el canvas" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" FontSize="21" Background="White" BorderThickness="2.5" Click="LoadButton_Click"  Margin="126,362,607,0" Height="57" VerticalAlignment="Top">
             <Button.Content>
                 <Image Source="loadIcon.png" Height="30"/>
             </Button.Content>
