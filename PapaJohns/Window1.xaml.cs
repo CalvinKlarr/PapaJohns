@@ -252,13 +252,9 @@ namespace PapaJohns
         //This no anda jeje
         private void ClearCanvas()
         {
-            // Remove existing segments.
-            for (int i = designSpace.Children.Count - 1; i >= 0; i--)
-            {
-                if (designSpace.Children[i] is Line)
-                    
-                    designSpace.Children.RemoveAt(i);
-            }
+            
+
+            designSpace.Children.Clear();
         }
 
 

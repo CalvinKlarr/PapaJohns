@@ -162,6 +162,8 @@ namespace PapaJohns
             // Show open file dialog box
             Nullable<bool> result = dlg.ShowDialog();
 
+            designCanvas.Children.Clear();
+
 
             // Process open file dialog box results
             if (result == true)
@@ -172,7 +174,12 @@ namespace PapaJohns
                 // Add all child elements (lines, rectangles etc) to canvas
                 while (canvas.Children.Count > 0)
                 {
-                    UIElement obj = canvas.Children[0]; // Get next child
+                    var obj = canvas.Children[0] as Image; // Get next child
+                    if (obj.Name.Contains("mesa"))
+                    {
+                        obj.MouseRightButtonDown += Obj_MouseRightButtonDown;
+
+                    }
                     canvas.Children.Remove(obj); // Have to disconnect it from result before we can add it
                     designCanvas.Children.Add(obj); // Add to canvas
                 }
@@ -191,13 +198,13 @@ namespace PapaJohns
         {
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Mesa>));
-            List<Mesa> mesas = new List<Mesa>();
+            List<Mesa> i = mesas;
 
             // Create an XmlTextWriter using a FileStream.
             Stream fs = new FileStream(filename, FileMode.Create);
             XmlWriter writer = new XmlTextWriter(fs, Encoding.Unicode);
             // Serialize using the XmlTextWriter.
-            serializer.Serialize(writer, mesas);
+            serializer.Serialize(writer, i);
             writer.Close();
         }
 
