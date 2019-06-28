@@ -31,14 +31,14 @@ namespace PapaJohns
         private Point mouseClick;
         private Image draggedImage;
         private double rotation = 0;
-        private Dictionary<Image, Mesa> mesas;
+        private List<MesasListo> mesas;
         private Mesa mesa;
         
         public Window1()
         {
             InitializeComponent();
             toolBox.MouseDoubleClick += ToolBox_MouseDoubleClick;
-            mesas = new Dictionary<Image, Mesa>();
+            mesas = new List<MesasListo>();
             backgroundChoice.SelectedItem = pisoDos;
             sizeChoice.SelectedItem = sizeOne;
 
@@ -73,8 +73,11 @@ namespace PapaJohns
                     table.Width = 50;
                     Canvas.SetLeft(table, 0);
                     Canvas.SetTop(table, 0);
+                    MesasListo mesalisto = new MesasListo();
                     mesa = new Mesa();
-                    mesas.Add(table, mesa);
+                    mesalisto.key = table;
+                    mesalisto.mesa = mesa;
+                    mesas.Add(mesalisto);
                     designSpace.Children.Add(table);
                     
                 }
@@ -96,9 +99,13 @@ namespace PapaJohns
                     rtable.Width = 50;
                     Canvas.SetLeft(rtable, 0);
                     Canvas.SetTop(rtable, 0);
+                    MesasListo mesalisto = new MesasListo();
                     mesa = new Mesa();
-                    mesas.Add(rtable, mesa);
+                    mesalisto.key = rtable;
+                    mesalisto.mesa = mesa;
+                    mesas.Add(mesalisto);
                     designSpace.Children.Add(rtable);
+                    //DICK
 
                 }
                 if (selected == " Taburete")
@@ -227,7 +234,14 @@ namespace PapaJohns
             if (image != null)
             {
                 designSpace.Children.Remove(image);
-                mesas.Remove(image);
+                foreach (var m in mesas)
+                {
+                    if(m.key == image)
+                    {
+                        mesas.Remove(m);
+                    }
+
+                }
             }
         }
 
@@ -238,6 +252,7 @@ namespace PapaJohns
             for (int i = designSpace.Children.Count - 1; i >= 0; i--)
             {
                 if (designSpace.Children[i] is Line)
+                    
                     designSpace.Children.RemoveAt(i);
             }
         }
@@ -377,11 +392,6 @@ namespace PapaJohns
 
 
 
-
-
-
-
-
             XmlSerializer serializer =
             new XmlSerializer(typeof(Dictionary<Image,Mesa>));
           //  Dictionary<Image,Mesa> i = new Dictionary<Image, Mesa>();
@@ -395,7 +405,7 @@ namespace PapaJohns
             writer.Close();
         }
 
-
+/*
         public void Serialize(Stream target)
         {
             // copy the values into an array:
@@ -408,8 +418,9 @@ namespace PapaJohns
             ser.Serialize(target, values);
 
         }
+        */
 
-      /*  public static Window1 DeSerialize(Stream source)
+    /*    public static Window1 DeSerialize(Stream source)
         {
             var ser = new XmlSerializer(typeof(MesasListo[]));
 
@@ -426,7 +437,7 @@ namespace PapaJohns
             }
 
             return mesas;
-        }*/
+        } */
 
 
 
@@ -484,7 +495,7 @@ namespace PapaJohns
 
         }
 
-
+/*
         public void DeserializeObject(string filename)
         {
             // Create an instance of the XmlSerializer.
@@ -499,6 +510,7 @@ namespace PapaJohns
                 mesas = (Dictionary<Image,Mesa>)serializer.Deserialize(reader);
             }
         }
+        */
 
 
             private void LoadButton_2_Click(object sender, RoutedEventArgs e)
@@ -510,9 +522,9 @@ namespace PapaJohns
             ofd.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
 
             ofd.ShowDialog();
-
+/*
             DeserializeObject(ofd.FileName);
-
+            */
         }
     }
 
