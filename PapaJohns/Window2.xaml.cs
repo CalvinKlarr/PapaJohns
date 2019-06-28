@@ -29,5 +29,25 @@ namespace PapaJohns
             this.designSpace = design;
             mesas = dict;
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveButton_2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoadButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LoadButton_2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

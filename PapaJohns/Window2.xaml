@@ -6,11 +6,33 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:PapaJohns"
         mc:Ignorable="d"
-        Title="Window2" Height="450" Width="800">
+        Title="Window2" Height="450" Width="800" Background="LightSteelBlue">
     <Grid>
         <Canvas Name="designSpace" Margin="10,0,10,57">
             
         </Canvas>
+        <Button Name="saveButton"  ToolTip="Guardado del Canvas" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"   BorderBrush="Black" BorderThickness="2.5" Click="SaveButton_Click"  Margin="0,362,733,0">
+            <Button.Content>
+                <Image Source="saveIcon.png" Height="30"/>
+            </Button.Content>
+        </Button>
+        <Button Name="saveButton_2" BorderBrush="Black" ToolTip="Guardado de las relaciones" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" BorderThickness="2.5" Click="SaveButton_2_Click"  Margin="64,362,671,0" >
+            <Button.Content>
+                <Image Source="saveIcon2.png" Height="30"/>
+            </Button.Content>
+        </Button>
+        <Button Name="loadButton" BorderBrush ="Black" ToolTip="Cargar el canvas" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" FontSize="21" Background="White" BorderThickness="2.5" Click="LoadButton_Click"  Margin="126,362,607,0">
+            <Button.Content>
+                <Image Source="loadIcon.png" Height="30"/>
+            </Button.Content>
+        </Button>
+        <Button Name="loadButton_2" BorderBrush="Black" ToolTip="Cargar relaciones" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Background="White" BorderThickness="2.5" Click="LoadButton_2_Click"  Margin="190,362,543,0">
+            <Button.Content>
+                <Image Source="loadIcon.png" Height="30"/>
+            </Button.Content>
+        </Button>
+        
+        
         
     </Grid>
 </Controls:MetroWindow>
