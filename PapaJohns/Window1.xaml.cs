@@ -32,7 +32,7 @@ namespace PapaJohns
         private Image draggedImage;
         private double rotation = 0;
         private List<Mesa> mesas;
-        private int cont;
+        private int cont, contsilla,contpared;
         private Mesa mesa;
         
         public Window1()
@@ -42,10 +42,26 @@ namespace PapaJohns
             mesas = new List<Mesa>();
             backgroundChoice.SelectedItem = pisoDos;
             sizeChoice.SelectedItem = sizeOne;
-            cont = 0;
+            if (File.Exists("cont.txt"))
+            {
+                using (StreamReader sr = new StreamReader("cont.txt"))
+                {
+                    cont = int.Parse(sr.ReadLine());
+                    contsilla = int.Parse(sr.ReadLine());
+                    contpared = int.Parse(sr.ReadLine());
+                    sr.Close();
+                }
+            }
+            else
+            {
+                cont = 0;
+                contsilla = 0;
+                contpared = 0;
+            }
 
 
         }
+
 
         private void ToolBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -92,7 +108,8 @@ namespace PapaJohns
                     chair.Source = new BitmapImage(new Uri("chair.png", UriKind.Relative));
                     chair.Height = 30;
                     chair.Width = 30;
-                    chair.Name = null;
+                    chair.Name = "silla"+contsilla;
+                    contsilla++;
                     Canvas.SetLeft(chair, 0);
                     Canvas.SetTop(chair, 0);
                     designSpace.Children.Add(chair);
@@ -103,7 +120,7 @@ namespace PapaJohns
                     rtable.Source = new BitmapImage(new Uri("roundtable.png", UriKind.Relative));
                     rtable.Height = 50;
                     rtable.Width = 50;
-                    rtable.Name = "mesa" + cont;
+                    rtable.Name = "mesar" + cont;
                     cont++;
                     Canvas.SetLeft(rtable, 0);
                     Canvas.SetTop(rtable, 0);
@@ -122,7 +139,8 @@ namespace PapaJohns
                     stool.Source = new BitmapImage(new Uri("stool.png", UriKind.Relative));
                     stool.Height = 30;
                     stool.Width = 30;
-                    stool.Name = null;
+                    stool.Name = "tabur"+contsilla;
+                    contsilla++;
                     Canvas.SetLeft(stool, 0);
                     Canvas.SetTop(stool, 0);
                     designSpace.Children.Add(stool);
@@ -133,7 +151,8 @@ namespace PapaJohns
                     wall.Source = new BitmapImage(new Uri("wall.png", UriKind.Relative));
                     wall.Height = 50;
                     wall.Width = 50;
-                    wall.Name = null;
+                    wall.Name = "pared"+contpared;
+                    contpared++;
                     Canvas.SetLeft(wall, 0);
                     Canvas.SetTop(wall, 0);
                     designSpace.Children.Add(wall);
@@ -396,6 +415,18 @@ namespace PapaJohns
 
         }
 
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            using (StreamWriter stw = new StreamWriter("cont.txt",false))
+            {
+                
+                stw.WriteLine(cont);
+                stw.WriteLine(contsilla);
+                stw.WriteLine(contpared);
+                stw.Close();
+            }
+
+        }
 
         private void DeserializeObject(string filename)
         {
