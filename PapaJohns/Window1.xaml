@@ -6,7 +6,7 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:PapaJohns"
         mc:Ignorable="d"
-        Title="Edit" Height="700" Width="1300" ShowTitleBar="True" Background="LightSteelBlue"  WindowStartupLocation="CenterScreen">
+        Title="Edit" Height="700" Width="1300" Closing="MetroWindow_Closing"  ShowTitleBar="True" Background="LightSteelBlue"  WindowStartupLocation="CenterScreen">
 
     <Grid Name="generalPanel" Margin="10,0,2,13" >
         <Button Name="saveButton"  ToolTip="Guardado del Canvas" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"  Margin="28,541,1198,65" BorderBrush="Black" BorderThickness="2.5" Click="SaveButton_Click">
