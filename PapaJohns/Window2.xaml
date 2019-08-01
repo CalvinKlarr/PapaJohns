@@ -25,17 +25,7 @@
                 <Image Source="saveIcon.png" Height="30"/>
             </Button.Content>
         </Button>
-        <Button Name="saveButton_2" BorderBrush="Black" ToolTip="Guardado de las relaciones" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" BorderThickness="2.5" Click="SaveButton_2_Click"  Margin="62,612,773,0" >
-            <Button.Content>
-                <Image Source="saveIcon2.png" Height="30"/>
-            </Button.Content>
-        </Button>
-        <Button Name="loadButton" BorderBrush ="Black" ToolTip="Cargar el canvas" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" FontSize="21" Background="White" BorderThickness="2.5" Click="LoadButton_Click"  Margin="124,612,711,0" Height="57" VerticalAlignment="Top">
-            <Button.Content>
-                <Image Source="loadIcon.png" Height="30"/>
-            </Button.Content>
-        </Button>
-        <Button Name="loadButton_2" BorderBrush="Black" ToolTip="Cargar relaciones" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Background="White" BorderThickness="2.5" Click="LoadButton_2_Click"  Margin="186,612,650,0">
+        <Button Name="loadButton" BorderBrush ="Black" ToolTip="Cargar el canvas" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" FontSize="21" Background="White" BorderThickness="2.5" Click="LoadButton_Click"  Margin="62,612,773,0" Height="57" VerticalAlignment="Top">
             <Button.Content>
                 <Image Source="loadIcon.png" Height="30"/>
             </Button.Content>

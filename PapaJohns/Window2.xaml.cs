@@ -54,9 +54,12 @@ namespace PapaJohns
                 while (canvus.Children.Count > 0)
                 {
                     var obj = canvus.Children[0] as Image; // Get next child
+                    
                     if (obj.Name.Contains("mesa"))
                     {
                         obj.MouseRightButtonDown += Obj_MouseRightButtonDown;
+                        obj.MouseLeftButtonDown += Obj_MouseLeftButtonDown;
+                        
 
                     }
                     canvus.Children.Remove(obj); // Have to disconnect it from result before we can add it
@@ -90,6 +93,20 @@ namespace PapaJohns
                 }
             }
 
+        }
+
+        private void Obj_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var im = sender as Image;
+            if(im != null) {
+                Mesa mes = mesas.Find(x => x.ImageName == im.Name);
+                ToolTip tp = new ToolTip();
+                tp.Content = mes.ToString();
+                im.ToolTip = tp;
+            }
+            
+
+            
         }
 
         private void Obj_MouseRightButtonDown(object sender, MouseButtonEventArgs e)

@@ -14,26 +14,16 @@
                 <Image Source="saveIcon.png" Height="30"/>
             </Button.Content>
         </Button>
-        <Button Name="saveButton_2" BorderBrush="Black" ToolTip="Guardado de las relaciones" Background="White" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" BorderThickness="2.5" Click="SaveButton_2_Click" Margin="122,541,1103,65">
-            <Button.Content>
-                <Image Source="saveIcon2.png" Height="30"/>
-            </Button.Content>
-        </Button>
-        <Button Name="loadButton" BorderBrush ="Black" ToolTip="Cargar el canvas" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"  Margin="216,541,1008,64" FontSize="21" Background="White" BorderThickness="2.5" Click="LoadButton_Click">
-            <Button.Content>
-                <Image Source="loadIcon.png" Height="30"/>
-            </Button.Content>
-        </Button>
-        <Button Name="loadButton_2" BorderBrush="Black" ToolTip="Cargar relaciones" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}" Background="White" BorderThickness="2.5" Click="LoadButton_2_Click" Margin="310,541,914,64">
+        <Button Name="loadButton" BorderBrush ="Black" ToolTip="Cargar el canvas" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"  Margin="87,540,1137,65" FontSize="21" Background="White" BorderThickness="2.5" Click="LoadButton_Click">
             <Button.Content>
                 <Image Source="loadIcon.png" Height="30"/>
             </Button.Content>
         </Button>
         <TextBlock Name="sizeName" Margin="10,245,814,361" FontSize="21">Tamaño del espacio:</TextBlock>
         <ComboBox Background="#FFD5DDE8" Name="sizeChoice" BorderThickness="1" BorderBrush="SteelBlue" FontSize="21" Margin="10,300,814,319" SelectionChanged="SizeChoice_SelectionChanged">
-            <ComboBoxItem Name="sizeOne">600x800</ComboBoxItem>
-            <ComboBoxItem Name="sizeTwo">400x600</ComboBoxItem>
-            <ComboBoxItem Name="sizeThree">200x400</ComboBoxItem>
+            <ComboBoxItem Name="sizeOne">30x30</ComboBoxItem>
+            <ComboBoxItem Name="sizeTwo">20x20</ComboBoxItem>
+            <ComboBoxItem Name="sizeThree">10x10</ComboBoxItem>
         </ComboBox>
         <TextBlock Name="backgroundText" FontSize="21" Margin="10,378,814,240">Piso:</TextBlock>
         <ComboBox  Background="#FFD5DDE8" Name="backgroundChoice"  BorderThickness="1" BorderBrush="SteelBlue" FontSize="21" Margin="10,421,814,197" SelectionChanged="BackgroundChoice_SelectionChanged">
