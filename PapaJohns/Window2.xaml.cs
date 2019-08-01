@@ -219,6 +219,7 @@ namespace PapaJohns
                     if (obj.Name.Contains("mesa"))
                     {
                         obj.MouseRightButtonDown += Obj_MouseRightButtonDown;
+                        obj.MouseLeftButtonDown += Obj_MouseLeftButtonDown;
 
                     }
                     canvas.Children.Remove(obj); // Have to disconnect it from result before we can add it
