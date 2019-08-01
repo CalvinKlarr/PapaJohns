@@ -150,6 +150,22 @@ namespace PapaJohns
                 string filename = dlg.FileName;
                 SerializeToXAML(designCanvas, filename);
             }
+
+
+
+
+            Microsoft.Win32.SaveFileDialog sdlg = new Microsoft.Win32.SaveFileDialog();
+            sdlg.FileName = "UIElement File"; // Default file name
+            sdlg.DefaultExt = ".xaml"; // Default file extension
+            sdlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+            sdlg.ShowDialog();
+
+            SerializeObject(sdlg.FileName);
+
+
+
+
         }
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
