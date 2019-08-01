@@ -375,34 +375,44 @@ namespace PapaJohns
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
 
-
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.DefaultExt = ".xaml"; // Default file extension
-            dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
-
-            // Show open file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Process open file dialog box results
-            if (result == true)
-            {
-                string filename = dlg.FileName;
-                Canvas canvas = DeSerializeXAML(filename) as Canvas;
-
-                // Add all child elements (lines, rectangles etc) to canvas
-                while (canvas.Children.Count > 0)
-                {
-                    UIElement obj = canvas.Children[0]; // Get next child
-                    canvas.Children.Remove(obj); // Have to disconnect it from result before we can add it
-                    designSpace.Children.Add(obj); // Add to canvas
-                }
-            }
-
-
             /*
+                        Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                        dlg.DefaultExt = ".xaml"; // Default file extension
+                        dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+                        // Show open file dialog box
+                        Nullable<bool> result = dlg.ShowDialog();
+
+                        // Process open file dialog box results
+                        if (result == true)
+                        {
+                            string filename = dlg.FileName;
+                            Canvas canvas = DeSerializeXAML(filename) as Canvas;
+
+                            // Add all child elements (lines, rectangles etc) to canvas
+                            while (canvas.Children.Count > 0)
+                            {
+                                UIElement obj = canvas.Children[0]; // Get next child
+                                canvas.Children.Remove(obj); // Have to disconnect it from result before we can add it
+                                designSpace.Children.Add(obj); // Add to canvas
+                            }
+                        }
+
+
+                        */
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.FileName = "RELACIONES";
+            ofd.DefaultExt = ".xaml"; // Default file extension
+            ofd.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+            ofd.ShowDialog();
+
+            DeserializeObject(ofd.FileName);
 
 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "CANVAS";
             dlg.DefaultExt = ".xaml"; // Default file extension
             dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
 
@@ -427,9 +437,11 @@ namespace PapaJohns
                     designSpace.Children.Add(obj); // Add to canvas
                 }
             }
+            
 
 
-            */
+
+            
         }
 
 
@@ -512,7 +524,7 @@ namespace PapaJohns
 
         private void LoadButton_2_Click(object sender, RoutedEventArgs e)
         {
-            
+         /*   
             OpenFileDialog ofd = new OpenFileDialog();
 
             ofd.DefaultExt = ".xaml"; // Default file extension
@@ -522,7 +534,7 @@ namespace PapaJohns
 
             DeserializeObject(ofd.FileName);
             
-
+    */
 
 
         }

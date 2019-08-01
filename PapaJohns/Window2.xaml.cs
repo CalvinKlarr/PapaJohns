@@ -135,6 +135,8 @@ namespace PapaJohns
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+
+
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "UIElement File"; // Default file name
             dlg.DefaultExt = ".xaml"; // Default file extension
@@ -152,16 +154,10 @@ namespace PapaJohns
             }
 
 
+            string filenamerelations = dlg.FileName + "_Relations.xaml";
 
+            SerializeObject(filenamerelations);
 
-            Microsoft.Win32.SaveFileDialog sdlg = new Microsoft.Win32.SaveFileDialog();
-            sdlg.FileName = "UIElement File"; // Default file name
-            sdlg.DefaultExt = ".xaml"; // Default file extension
-            sdlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
-
-            sdlg.ShowDialog();
-
-            SerializeObject(sdlg.FileName);
 
 
 
@@ -170,8 +166,20 @@ namespace PapaJohns
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
+            //CARGAR LAS RELACIONES
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.FileName = "RELACIONES";
+            ofd.DefaultExt = ".xaml"; // Default file extension
+            ofd.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
+
+            ofd.ShowDialog();
+
+            DeserializeObject(ofd.FileName);
+
+            //CARGAR EL CANVAS
 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.FileName = "CANVAS";
             dlg.DefaultExt = ".xaml"; // Default file extension
             dlg.Filter = "Xaml File (.xaml)|*.xaml"; // Filter files by extension
 
@@ -240,7 +248,7 @@ namespace PapaJohns
 
         private void SaveButton_2_Click(object sender, RoutedEventArgs e)
         {
-
+            /*
             Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
             dlg.FileName = "UIElement File"; // Default file name
             dlg.DefaultExt = ".xaml"; // Default file extension
@@ -249,12 +257,13 @@ namespace PapaJohns
             dlg.ShowDialog();
 
             SerializeObject(dlg.FileName);
+            */
 
         }
 
 
         private void LoadButton_2_Click(object sender, RoutedEventArgs e)
-        {
+        {/*
             OpenFileDialog ofd = new OpenFileDialog();
 
             ofd.DefaultExt = ".xaml"; // Default file extension
@@ -263,6 +272,7 @@ namespace PapaJohns
             ofd.ShowDialog();
 
             DeserializeObject(ofd.FileName);
+            */
         }
 
         private void clienteItem_Click(object sender, RoutedEventArgs e)
